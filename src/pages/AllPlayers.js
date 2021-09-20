@@ -8,9 +8,9 @@ const AllPlayers = (props) => {
 
   useEffect(() => {
     const getPlayers = async () => {
-      const allContracts = await GetAList("get-all-players");
-      setListOfPlayers(allContracts);
-      console.log(PlayersList)
+      const allPlayers = await GetAList("get-all-players");
+      setListOfPlayers(allPlayers);
+      console.log(allPlayers)
     };
 
     if (props.modalIsClosed) {
@@ -20,9 +20,7 @@ const AllPlayers = (props) => {
     getPlayers();
   }, [props.modalIsClosed]);
 
-  // return <PlayersList list={listOfPlayers} />;
-
-  return <div style={{marginTop: '25rem'}}>HELP</div>
+  return <PlayersList list={listOfPlayers} />;
 
  
 };

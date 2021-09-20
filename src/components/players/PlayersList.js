@@ -29,7 +29,7 @@ const PlayersList = (props) => {
   //   setByInstrumentList(allPlayersOfInstrument);
   // };
 
-  const playersToDisplay = byInstrumentList.map((player) => (
+  const playersToDisplay = props.list.map((player) => (
     <Player
       key={player.id}
       player={player}

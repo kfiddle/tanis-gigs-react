@@ -2,7 +2,7 @@ import { Fragment, useState, useEffect } from "react";
 import classes from "./Layout.module.css";
 import MainNavigation from "../mainNavigation/MainNavigation";
 
-// import PlayerEntry from "../players/PlayerEntry";
+import PlayerEntry from "../players/PlayerEntry";
 // import PieceEntry from "../piece/PieceEntry";
 // import InstrumentEntry from "../instruments/InstrumentEntry";
 // import PerformanceEntry from "../performances/PerformanceEntry";
@@ -52,14 +52,14 @@ const Layout = (props) => {
         performanceEntryClicked={performanceEntryClicked}
         modalChange={playerEntryFormRendered}
       />
-      {/* {playerEntryFormRendered && <PlayerEntry closeModal={closeModal} />}
-      {pieceEntryFormRendered && <PieceEntry closeModal={closeModal} />}
+      {playerEntryFormRendered && <PlayerEntry closeModal={closeModal} />}
+     {/*  {pieceEntryFormRendered && <PieceEntry closeModal={closeModal} />}
       {instrumentEntryFormRendered && (
         <InstrumentEntry closeModal={closeModal} />
       )}
       {performanceEntryFormRendered && <PerformanceEntry closeModal={closeModal} />}
-
-      <main className={classes.main}>{props.children}</main> */}
+*/}
+      <main className={classes.main}>{props.children}</main>
     </Fragment>
   );
 };

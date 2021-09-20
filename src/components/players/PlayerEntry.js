@@ -1,9 +1,9 @@
 import { useState, useEffect, useRef } from "react";
 
-import AllInstruments from "../instruments/allInstruments/AllInstruments";
-import Modal from '../'
-import Input from "../input/Input";
-import PushBasic from "../helperFunctions/pushFunctions/PushBasic";
+import AllInstruments from '../instruments/allInstruments/AllInstruments';
+import Modal from '../UI/modal/Modal';
+import Input from '../input/Input';
+import PushBasic from '../helperFunctions/pushFunctions/PushBasic';
 import GetAList from "../helperFunctions/GetAList";
 
 import classes from "./PlayerEntry.module.css";
@@ -160,7 +160,7 @@ const PlayerEntry = (props) => {
 
     const sendPlayerOff = async () => {
       console.log(playerToSubmit.type);
-      let response = await PushBasic(playerToSubmit, "add-player");
+      let response = await PushBasic(playerToSubmit, "add-or-edit-player");
       if (response.ok) {
         props.closeModal();
       }
