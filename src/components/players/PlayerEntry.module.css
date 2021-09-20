@@ -1,0 +1,166 @@
+.outerContainer {
+  width: 40%;
+  margin: 10rem auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.innerContainer {
+  margin: 2rem;
+  padding: 1rem;
+}
+
+.control {
+  margin-bottom: 0.5rem;
+}
+
+.control label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+.control input,
+.control textarea {
+  font: inherit;
+  padding: 1rem;
+  border-radius: 4px;
+  background-color: #f0f0f0;
+  border: 1px solid #c1d1d1;
+  display: block;
+  width: 100%;
+  font-size: 1.25rem;
+}
+
+.control input:focus,
+.control textarea:focus {
+  background-color: #cbf8f8;
+  outline-color: teal;
+}
+
+.nameAndInstrumentDiv {
+  display: flex;
+  align-items: center;
+}
+
+.nameDiv {
+  width: 50%;
+}
+
+.instrumentDropdownDiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: slategray;
+  border-radius: 5px;
+  color: whitesmoke;
+  font-size: 1.25rem;
+  height: 2rem;
+  margin: 2rem 0 1rem 2rem;
+  padding: 0 1rem;
+  width: 20%;
+  cursor: pointer;
+}
+
+.instrumentDropdownDiv:hover {
+  background: lightgray;
+  color: goldenrod;
+}
+
+.instrumentsListDiv {
+  position: fixed;
+  width: 40%;
+  margin-left: 50vw;
+  max-height: 20rem;
+  overflow: auto;
+}
+
+.phoneDiv {
+  display: flex;
+  margin: 1rem 0;
+}
+
+.phoneDiv div {
+  width: 40%;
+  margin-right: 2rem;
+}
+
+.emailDiv {
+  width: 90%;
+}
+
+.cityStateDiv {
+  display: flex;
+}
+
+.city {
+  width: 60%;
+  margin-right: 2rem;
+}
+.state {
+  width: 10%;
+  margin-right: 2rem;
+}
+
+.unionsDiv {
+  width: 40%;
+}
+
+.checkedDiv {
+  display: flex;
+  width: 90%;
+  font-weight: 900;
+  margin: 3rem auto;
+}
+
+.checkedDiv div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 20%;
+}
+
+.checkedDiv input {
+  width: 50%;
+}
+
+/* .buttonDiv {
+  margin: 1rem 45%;
+} */
+
+.buttonDiv {
+  display: flex;
+  justify-content: space-around;
+  width: 60%;
+  margin: 0 auto;
+  font-weight: 900;
+}
+
+.button {
+  width: fit-content;
+  font-size: 1.5rem;
+  font-weight: 900;
+  white-space: nowrap;
+  background: #161e66;
+  color: whitesmoke;
+  border-radius: 5px;
+}
+
+.button:hover {
+  background: rgb(13, 80, 30);
+  color: chartreuse;
+}
+
+.deleteButton {
+  width: fit-content;
+  background: rgb(161, 21, 21);
+  border-radius: 5px;
+  box-shadow: 2px 2px black;
+  color: whitesmoke;
+
+}
+
+.deleteButton:hover {
+  color: chartreuse;
+  background: red;
+}
