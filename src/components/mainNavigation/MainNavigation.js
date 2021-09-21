@@ -56,12 +56,12 @@ const MainNavigation = (props) => {
               Gigs
             </NavLink>
           </li>
-          <li className={classes.navItem}>
+          {/* <li className={classes.navItem}>
             <NavLink to={"/season"} activeClassName={classes.active}>
               {" "}
               Season
             </NavLink>
-          </li>
+          </li> */}
         </ul>
       </nav>
     </header>

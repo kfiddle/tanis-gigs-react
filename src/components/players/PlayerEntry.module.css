@@ -124,10 +124,6 @@
   width: 50%;
 }
 
-/* .buttonDiv {
-  margin: 1rem 45%;
-} */
-
 .buttonDiv {
   display: flex;
   justify-content: space-around;

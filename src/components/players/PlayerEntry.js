@@ -1,9 +1,9 @@
 import { useState, useEffect, useRef } from "react";
 
-import AllInstruments from '../instruments/allInstruments/AllInstruments';
-import Modal from '../UI/modal/Modal';
-import Input from '../input/Input';
-import PushBasic from '../helperFunctions/pushFunctions/PushBasic';
+import AllInstruments from "../instruments/allInstruments/AllInstruments";
+import Modal from "../UI/modal/Modal";
+import InputText from "../input/InputText";
+import PushBasic from "../helperFunctions/pushFunctions/PushBasic";
 import GetAList from "../helperFunctions/GetAList";
 
 import classes from "./PlayerEntry.module.css";
@@ -113,8 +113,6 @@ const PlayerEntry = (props) => {
     const inputtedFirstNameArea = tempFirstNameArea.join(" ");
     const inputtedLastName = names[names.length - 1];
 
-    console.log(instrumentsList);
-
     const playerToSubmit = {
       id,
       firstNameArea:
@@ -153,9 +151,6 @@ const PlayerEntry = (props) => {
       city: cityRef.current.value === "" ? city : cityRef.current.value,
       state: stateRef.current.value === "" ? state : stateRef.current.value,
       zip: zipRef.current.value === "" ? zip : zipRef.current.value,
-      unions: unionsRef.current.value === "" ? unions : unionsRef.current.value,
-
-      type: selectedType[0] === true ? "CONTRACT" : "SUB",
     };
 
     const sendPlayerOff = async () => {
@@ -172,14 +167,12 @@ const PlayerEntry = (props) => {
     <Modal closeModal={props.closeModal}>
       <form className={classes.innerContainer}>
         <div className={`${classes.control} ${classes.nameAndInstrumentDiv}`}>
-          <div className={`${classes.control} ${classes.nameDiv}`}>
-            <label>Full Name</label>
-            <input
-              type="text"
-              ref={fullNameRef}
-              placeholder={`${firstNameArea} ${lastName}`}
-            />
-          </div>
+          <InputText
+            label={"Full Name"}
+            ref={fullNameRef}
+            placeholder={`${firstNameArea} ${lastName}`}
+            style={{ width: "50%" }}
+          />
 
           <div
             className={`${classes.control} ${classes.instrumentDropdownDiv}`}
@@ -199,102 +192,54 @@ const PlayerEntry = (props) => {
         )}
 
         <div className={classes.phoneDiv}>
-          <Input
+          <InputText
             label={"Home Phone"}
-            type={"text"}
             ref={homePhoneRef}
             placeholder={homePhone}
           />
 
-          <Input
+          <InputText
             label={"Cell Phone"}
-            type={"text"}
             ref={cellPhoneRef}
             placeholder={cellPhone}
           />
         </div>
 
-        <Input
+        <InputText
           label={"Email"}
-          type={"text"}
           ref={emailRef}
           placeholder={email}
           style={{ width: "90%" }}
         />
 
-        <Input
+        <InputText
           label={"Address Line 1"}
-          type="text"
           ref={addressLine1Ref}
           placeholder={addressLine1}
         />
 
-        <Input
+        <InputText
           label={"Address Line 2"}
-          type="text"
           ref={addressLine2Ref}
           placeholder={addressLine2}
         />
 
         <div className={classes.cityStateDiv}>
-          <div className={`${classes.control} ${classes.city}`}>
-            <label>City</label>
-            <input type="text" id="address" ref={cityRef} placeholder={city} />
-          </div>
+          <InputText
+            label={"City"}
+            ref={cityRef}
+            placeholder={city}
+            style={{ width: "60%", marginRight: "2rem" }}
+          />
 
-          <div className={`${classes.control} ${classes.state}`}>
-            <label>State</label>
-            <input type="text" ref={stateRef} placeholder={state} />
-          </div>
+          <InputText
+            label={"State"}
+            ref={stateRef}
+            placeholder={state}
+            style={{ width: "10%", marginRight: "2rem" }}
+          />
 
-          <div className={`${classes.control} ${classes.zip}`}>
-            <label>Zip</label>
-            <input type="text" ref={zipRef} placeholder={zip} />
-          </div>
-        </div>
-
-        <div className={`${classes.control} ${classes.unionsDiv}`}>
-          <label>Unions</label>
-          <input type="text" ref={unionsRef} placeholder={unions} />
-        </div>
-
-        <div className={classes.checkedDiv}>
-          <div>
-            <label>Contracted</label>
-            <input
-              type="radio"
-              ref={contractedRef}
-              checked={selectedType[0]}
-              onChange={() =>
-                setSelectedType((previous) => [!previous[0], false])
-              }
-            />
-          </div>
-
-          <div>
-            <label>Sub</label>
-            <input
-              type="radio"
-              ref={subRef}
-              checked={selectedType[1]}
-              onChange={() =>
-                setSelectedType((previous) => [false, !previous[1]])
-              }
-            />
-          </div>
-          <div className={classes.hiddenSubTypeDiv}>
-            {selectedType[0] === true && (
-              <div>
-                <label>Principal</label>
-                <input type="radio" />
-                <label>Assistant</label>
-                <input type="radio" />
-                <label>Section</label>
-                <input type="radio" />
-              </div>
-            )}
-            {selectedType[1] === true && <h2>I'm a SUB</h2>}
-          </div>
+          <InputText label={"Zip"} ref={zipRef} placeholder={zip} />
         </div>
 
         <div className={classes.buttonDiv}>
