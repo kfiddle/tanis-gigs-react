@@ -39,6 +39,7 @@
 
 .nameAndInstrumentDiv {
   display: flex;
+  justify-content: space-between;
   align-items: center;
 }
 
@@ -136,6 +137,7 @@
   width: fit-content;
   font-size: 1.5rem;
   font-weight: 900;
+  margin: 2rem;
   white-space: nowrap;
   background: #161e66;
   color: whitesmoke;
