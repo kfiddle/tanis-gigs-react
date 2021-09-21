@@ -34,7 +34,7 @@ const MainNavigation = (props) => {
 
             <li
               className={classes.navItem}
-              onClick={props.performanceEntryClicked}
+              onClick={props.gigEntryClicked}
               style={{ marginRight: "7rem" }}
             >
               <GiDramaMasks />

@@ -2,9 +2,7 @@ import { Fragment, useState } from "react";
 
 import GetAList from "../helperFunctions/GetAList";
 import Player from "./Player";
-// import ByInstrumentsHeader from "../byInstrumentsHeader/ByInstrumentsHeader";
-
-// import PushSomething from "../helperFunctions/PushSomething";
+import ByInstrumentsHeader from "../byInstrumentsHeader/ByInstrumentsHeader";
 
 import styles from "./PlayersList.module.css";
 
@@ -12,22 +10,22 @@ const PlayersList = (props) => {
   const [byInstrumentList, setByInstrumentList] = useState([]);
   const [chosenInstrument, setChosenInstrument] = useState("");
 
-  // const clickedPlayerHandler = (player) => {
-  //   console.log(player.lastName);
-  // };
+  const clickedPlayerHandler = (player) => {
+    console.log(player.lastName);
+  };
 
-  // const instrumentChooser = async (instrumentString) => {
-  //   setChosenInstrument(instrumentString);
-  //   let instrumentToSend =
-  //     instrumentString === "Eb Clarinet"
-  //       ? "EBCLARINET"
-  //       : instrumentString.toUpperCase();
+  const instrumentChooser = async (instrumentString) => {
+    setChosenInstrument(instrumentString);
+    let instrumentToSend =
+      instrumentString === "Eb Clarinet"
+        ? "EBCLARINET"
+        : instrumentString.toUpperCase();
 
-  //   const allPlayersOfInstrument = await GetAList(
-  //     props.type + "/" + instrumentToSend
-  //   );
-  //   setByInstrumentList(allPlayersOfInstrument);
-  // };
+    const allPlayersOfInstrument = await GetAList(
+      props.type + "/" + instrumentToSend
+    );
+    setByInstrumentList(allPlayersOfInstrument);
+  };
 
   const playersToDisplay = props.list.map((player) => (
     <Player
@@ -40,10 +38,9 @@ const PlayersList = (props) => {
 
   return (
     <Fragment>
-      {/* <ByInstrumentsHeader instrumentChooser={instrumentChooser} /> */}
+      <ByInstrumentsHeader instrumentChooser={instrumentChooser} />
       <div className={styles.outerContainer}>
         <div>{playersToDisplay}</div>
-        Howdy
       </div>
     </Fragment>
   );

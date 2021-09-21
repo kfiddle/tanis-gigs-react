@@ -5,15 +5,14 @@ import MainNavigation from "../mainNavigation/MainNavigation";
 import PlayerEntry from "../players/PlayerEntry";
 // import PieceEntry from "../piece/PieceEntry";
 // import InstrumentEntry from "../instruments/InstrumentEntry";
-// import PerformanceEntry from "../performances/PerformanceEntry";
+import GigEntry from "../gigs/GigEntry";
 
 const Layout = (props) => {
   const [playerEntryFormRendered, setPlayerEntryFormRendered] = useState(false);
   const [pieceEntryFormRendered, setPieceEntryFormRendered] = useState(false);
   const [instrumentEntryFormRendered, setInstrumentEntryFormRendered] =
     useState(false);
-  const [performanceEntryFormRendered, setPerformanceEntryFormRendered] =
-    useState(false);
+  const [gigEntryFormRendered, setGigEntryFormRendered] = useState(false);
 
   const playerEntryClicked = () => {
     setPlayerEntryFormRendered(true);
@@ -30,8 +29,8 @@ const Layout = (props) => {
     props.modalCloseHandler(false);
   };
 
-  const performanceEntryClicked = () => {
-    setPerformanceEntryFormRendered(true);
+  const gigEntryClicked = () => {
+    setGigEntryFormRendered(true);
     props.modalCloseHandler(false);
   };
 
@@ -39,7 +38,7 @@ const Layout = (props) => {
     setPlayerEntryFormRendered(false);
     setPieceEntryFormRendered(false);
     setInstrumentEntryFormRendered(false);
-    setPerformanceEntryFormRendered(false);
+    setGigEntryFormRendered(false);
     props.modalCloseHandler(true);
   };
 
@@ -49,16 +48,16 @@ const Layout = (props) => {
         playerEntryClicked={playerEntryClicked}
         pieceEntryClicked={pieceEntryClicked}
         instrumentEntryClicked={instrumentEntryClicked}
-        performanceEntryClicked={performanceEntryClicked}
+        gigEntryClicked={gigEntryClicked}
         modalChange={playerEntryFormRendered}
       />
       {playerEntryFormRendered && <PlayerEntry closeModal={closeModal} />}
-     {/*  {pieceEntryFormRendered && <PieceEntry closeModal={closeModal} />}
+      {/*  {pieceEntryFormRendered && <PieceEntry closeModal={closeModal} />}
       {instrumentEntryFormRendered && (
         <InstrumentEntry closeModal={closeModal} />
-      )}
-      {performanceEntryFormRendered && <PerformanceEntry closeModal={closeModal} />}
-*/}
+      )}*/}
+      {gigEntryFormRendered && <GigEntry closeModal={closeModal} />}
+
       <main className={classes.main}>{props.children}</main>
     </Fragment>
   );
