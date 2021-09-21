@@ -53,6 +53,20 @@ const GigEntry = (props) => {
       setEnsembleDropdownClicked(true)
   }
 
+  const clickedInstrument = (instrument) => {
+    const tempInstrumentList = clickedInstrumentList;
+    tempInstrumentList.push(instrument);
+    setClickedInstrumentList(tempInstrumentList);
+    console.log(clickedInstrumentList);
+  };
+
+  const unClickedInstrument = (instrument) => {
+    const tempInstrumentList = clickedInstrumentList.filter(
+      (instr) => instr.id !== instrument.id
+    );
+    setClickedInstrumentList(tempInstrumentList);
+  };
+
   return (
     <Modal closeModal={props.closeModal}>
       <div className={classes.outerContainer}>
@@ -83,8 +97,8 @@ const GigEntry = (props) => {
             <div className={classes.instrumentsListDiv}>
               <AllInstruments
               list={instrumentsList}
-            //   clickedInstrument={clickedInstrument}
-            //   unClickedInstrument={unClickedInstrument}
+              clickedInstrument={clickedInstrument}
+              unClickedInstrument={unClickedInstrument}
               />
             </div>
           )}
