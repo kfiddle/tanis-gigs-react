@@ -1,23 +1,21 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useContext } from "react";
 
 import PushBasic from "../helperFunctions/pushFunctions/PushBasic";
 import Modal from "../UI/modal/Modal";
 import InputText from "../input/InputText";
-import AllInstruments from "../instruments/allInstruments/AllInstruments";
+import InstrumentsDropDown from "../instruments/InstrumentsDropDown";
 import InputDate from "../input/InputDate";
 
-import GetAList from "../helperFunctions/GetAList";
+import InstrumentsList from "../../store/instrument-list";
+
 import MoneyFunctions from "../helperFunctions/MoneyFunctions";
 
 import classes from "./GigEntry.module.css";
-import InputNumber from "../input/InputNumber";
 
 const GigEntry = (props) => {
-  const [ensembleDropdownClicked, setEnsembleDropdownClicked] =
-    useState(false);
-  const [instrumentsList, setInstrumentsList] = useState([]);
-    
+  const [ensembleDropdownClicked, setEnsembleDropdownClicked] = useState(false);
   const [clickedInstrumentList, setClickedInstrumentList] = useState([]);
+
   let id = "";
   let date = "";
 
@@ -28,93 +26,104 @@ const GigEntry = (props) => {
     date = props.gig.date;
   }
 
-  useEffect(() => {
-    const getInstruments = async () => {
-      const allInstruments = await GetAList("get-all-instrument-enums");
-      setInstrumentsList(allInstruments);
-    };
-
-    getInstruments();
-  }, []);
   const submitGig = async (event) => {
     event.preventDefault();
 
-    const gigToSendUp = {
-      date: dateRef.current.value,
-    };
+    console.log(clickedInstrumentList);
 
-    let response = await PushBasic(gigToSendUp, "add-gig");
-    if (response.ok) {
-      props.closeModal();
-    }
+    // const gigToSendUp = {
+    //   date: dateRef.current.value,
+    // };
+
+    // let response = await PushBasic(gigToSendUp, "add-gig");
+    // if (response.ok) {
+    //   props.closeModal();
+    // }
+  };
+
+  const addInstrument = (instrument) => {
+    setClickedInstrumentList((previous) => [...previous, instrument]);
+  };
+
+  const removeInstrument = (instrument) => {
+    console.log(instrument);
+    setClickedInstrumentList((previous) =>
+      previous.filter((instr) => instr === instrument)
+    );
   };
 
   const ensembleClickHandler = () => {
-      setEnsembleDropdownClicked(true)
-  }
-
-  const clickedInstrument = (instrument) => {
-    const tempInstrumentList = clickedInstrumentList;
-    tempInstrumentList.push(instrument);
-    setClickedInstrumentList(tempInstrumentList);
-    console.log(clickedInstrumentList);
+    setEnsembleDropdownClicked(true);
   };
 
-  const unClickedInstrument = (instrument) => {
-    const tempInstrumentList = clickedInstrumentList.filter(
-      (instr) => instr.id !== instrument.id
-    );
-    setClickedInstrumentList(tempInstrumentList);
+  const instrumentToList = (instrument) => {
+    let tempList = clickedInstrumentList;
+    tempList = tempList.filter((instr) => instr !== instrument);
+
+    if (tempList.length === clickedInstrumentList.length) {
+      setClickedInstrumentList((previous) => [...previous, instrument]);
+    } else {
+      setClickedInstrumentList(tempList);
+    }
   };
+
 
   return (
-    <Modal closeModal={props.closeModal}>
-      <div className={classes.outerContainer}>
-        <form>
-          <InputText label={"Gig Location"} />
-          <InputDate label={"Date"} ref={dateRef} />
+    <InstrumentsList.Provider
+      value={{
+        addToList: addInstrument,
+        removeFromList: removeInstrument,
+        clickedInstrumentList: clickedInstrumentList,
+        instrumentToList,
+      }}
+    >
+      <Modal closeModal={props.closeModal}>
+        <div className={classes.outerContainer}>
+          <form>
+            <InputText label={"Gig Location"} />
+            <InputDate label={"Date"} ref={dateRef} />
 
-          <div className={classes.completeTimeDiv}>
-            <div className={`${classes.control} ${classes.startTimeDiv}`}>
-              <label>Start Time</label>
-              <input className={classes.timeInput} style={{ width: "5%" }} />
-              <input className={classes.timeInput} style={{ width: "5%" }} />
+            <div className={classes.completeTimeDiv}>
+              <div className={`${classes.control} ${classes.startTimeDiv}`}>
+                <label>Start Time</label>
+                <input className={classes.timeInput} style={{ width: "5%" }} />
+                <input className={classes.timeInput} style={{ width: "5%" }} />
+              </div>
+              <div className={`${classes.control} ${classes.endTimeDiv}`}>
+                <label>End Time</label>
+                <input className={classes.timeInput} style={{ width: "5%" }} />
+                <input className={classes.timeInput} style={{ width: "5%" }} />
+              </div>
             </div>
-            <div className={`${classes.control} ${classes.endTimeDiv}`}>
-              <label>End Time</label>
-              <input className={classes.timeInput} style={{ width: "5%" }} />
-              <input className={classes.timeInput} style={{ width: "5%" }} />
+
+            <div
+              className={`${classes.control} ${classes.instrumentDropdownDiv}`}
+            >
+              <h3 onClick={ensembleClickHandler}>Ensemble</h3>
             </div>
-          </div>
 
-          <div
-            className={`${classes.control} ${classes.instrumentDropdownDiv}`}
-          >
-            <h3 onClick={ensembleClickHandler}>Ensemble</h3>
-          </div>
+            {ensembleDropdownClicked && (
+              <InstrumentsDropDown
+                list={clickedInstrumentList}
 
-          {ensembleDropdownClicked && (
-            <div className={classes.instrumentsListDiv}>
-              <AllInstruments
-              list={instrumentsList}
-              clickedInstrument={clickedInstrument}
-              unClickedInstrument={unClickedInstrument}
+                // clickedInstrument={clickedInstrument}
+                // unClickedInstrument={unClickedInstrument}
               />
+            )}
+
+            <InputText label={"Client"} style={{ width: "80%" }} />
+            <InputText label={"Client Contact"} style={{ width: "80%" }} />
+            <InputText label={"Notes"} style={{ width: "80%" }} />
+
+            <div className={classes.buttonDiv}>
+              <button className={classes.button} onClick={submitGig}>
+                Submit
+              </button>
             </div>
-          )}
-
-          <InputText label={"Client"} style={{ width: "80%" }} />
-          <InputText label={"Client Contact"} style={{ width: "80%" }} />
-          <InputText label={"Notes"} style={{ width: "80%" }} />
-
-          <div className={classes.buttonDiv}>
-            <button className={classes.button} onClick={submitGig}>
-              Submit
-            </button>
-          </div>
-        </form>
-      </div>
-    </Modal>
+          </form>
+        </div>
+      </Modal>
+    </InstrumentsList.Provider>
   );
 };
 
