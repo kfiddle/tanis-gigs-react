@@ -6,7 +6,9 @@ import InputText from "../input/InputText";
 import InstrumentsDropDown from "../instruments/InstrumentsDropDown";
 import InputDate from "../input/InputDate";
 
-import InstrumentsList from "../../store/instrument-list";
+import InstrumentsList from "../../store/instruments-list";
+
+import InstrumentToListHelper from "../helperFunctions/InstrumentToListHelper";
 
 import MoneyFunctions from "../helperFunctions/MoneyFunctions";
 
@@ -28,8 +30,7 @@ const GigEntry = (props) => {
 
   const submitGig = async (event) => {
     event.preventDefault();
-
-    console.log(clickedInstrumentList);
+    console.log(clickedInstrumentList)
 
     // const gigToSendUp = {
     //   date: dateRef.current.value,
@@ -41,40 +42,19 @@ const GigEntry = (props) => {
     // }
   };
 
-  const addInstrument = (instrument) => {
-    setClickedInstrumentList((previous) => [...previous, instrument]);
-  };
-
-  const removeInstrument = (instrument) => {
-    console.log(instrument);
-    setClickedInstrumentList((previous) =>
-      previous.filter((instr) => instr === instrument)
-    );
-  };
-
   const ensembleClickHandler = () => {
     setEnsembleDropdownClicked(true);
   };
 
   const instrumentToList = (instrument) => {
-    let tempList = clickedInstrumentList;
-    tempList = tempList.filter((instr) => instr !== instrument);
-
-    if (tempList.length === clickedInstrumentList.length) {
-      setClickedInstrumentList((previous) => [...previous, instrument]);
-    } else {
-      setClickedInstrumentList(tempList);
-    }
-  };
-
+    InstrumentToListHelper(instrument, clickedInstrumentList, setClickedInstrumentList);
+  }
 
   return (
     <InstrumentsList.Provider
       value={{
-        addToList: addInstrument,
-        removeFromList: removeInstrument,
         clickedInstrumentList: clickedInstrumentList,
-        instrumentToList,
+        instrumentToList
       }}
     >
       <Modal closeModal={props.closeModal}>
@@ -103,13 +83,10 @@ const GigEntry = (props) => {
             </div>
 
             {ensembleDropdownClicked && (
-              <InstrumentsDropDown
-                list={clickedInstrumentList}
-
-                // clickedInstrument={clickedInstrument}
-                // unClickedInstrument={unClickedInstrument}
-              />
+              <InstrumentsDropDown  />
             )}
+
+{/* list={clickedInstrumentList} */}
 
             <InputText label={"Client"} style={{ width: "80%" }} />
             <InputText label={"Client Contact"} style={{ width: "80%" }} />

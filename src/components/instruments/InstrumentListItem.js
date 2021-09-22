@@ -1,10 +1,10 @@
 import { useContext } from "react";
-import InstrumentsList from "../../store/instrument-list";
+import InstrumentsList from "../../store/instruments-list";
 
 import classes from "./InstrumentListItem.module.css";
 
 const InstrumentListItem = (props) => {
-  const { addToList, removeFromList, instrumentToList, clickedInstrumentList } =
+  const { instrumentToList, clickedInstrumentList } =
     useContext(InstrumentsList);
   const name = props.instrument;
 

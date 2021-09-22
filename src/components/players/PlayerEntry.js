@@ -1,8 +1,14 @@
 import { useState, useEffect, useRef } from "react";
 
-import AllInstruments from "../instruments/allInstruments/AllInstruments";
+import InstrumentsDropDown from "../instruments/InstrumentsDropDown";
 import Modal from "../UI/modal/Modal";
 import InputText from "../input/InputText";
+
+import InstrumentToListHelper from "../helperFunctions/InstrumentToListHelper";
+
+
+import InstrumentsList from "../../store/instruments-list";
+
 import PushBasic from "../helperFunctions/pushFunctions/PushBasic";
 import GetAList from "../helperFunctions/GetAList";
 
@@ -108,6 +114,8 @@ const PlayerEntry = (props) => {
   const submitPlayer = (event) => {
     event.preventDefault();
 
+    console.log(clickedInstrumentList);
+
     const names = fullNameRef.current.value.split(" ");
     const tempFirstNameArea = names.slice(0, -1);
     const inputtedFirstNameArea = tempFirstNameArea.join(" ");
@@ -163,25 +171,39 @@ const PlayerEntry = (props) => {
     setTimeout(sendPlayerOff, 200);
   };
 
+  const instrumentToList = (instrument) => {
+    InstrumentToListHelper(
+      instrument,
+      clickedInstrumentList,
+      setClickedInstrumentList
+    );
+  };
+
   return (
-    <Modal closeModal={props.closeModal}>
-      <form className={classes.innerContainer}>
-        <div className={`${classes.control} ${classes.nameAndInstrumentDiv}`}>
-          <InputText
-            label={"Full Name"}
-            ref={fullNameRef}
-            placeholder={`${firstNameArea} ${lastName}`}
-            style={{ width: "50%" }}
-          />
+    <InstrumentsList.Provider
+      value={{
+        clickedInstrumentList: clickedInstrumentList,
+        instrumentToList,
+      }}
+    >
+      <Modal closeModal={props.closeModal}>
+        <form className={classes.innerContainer}>
+          <div className={`${classes.control} ${classes.nameAndInstrumentDiv}`}>
+            <InputText
+              label={"Full Name"}
+              ref={fullNameRef}
+              placeholder={`${firstNameArea} ${lastName}`}
+              style={{ width: "50%" }}
+            />
 
-          <div
-            className={`${classes.control} ${classes.instrumentDropdownDiv}`}
-          >
-            <h3 onClick={instrumentsClickHandler}>Instrument</h3>
+            <div
+              className={`${classes.control} ${classes.instrumentDropdownDiv}`}
+            >
+              <h3 onClick={instrumentsClickHandler}>Instrument</h3>
+            </div>
           </div>
-        </div>
 
-        {instrumentDropdownClicked && (
+          {/* {instrumentDropdownClicked && (
           <div className={classes.instrumentsListDiv}>
             <AllInstruments
               list={instrumentsList}
@@ -189,75 +211,82 @@ const PlayerEntry = (props) => {
               unClickedInstrument={unClickedInstrument}
             />
           </div>
-        )}
+        )} */}
 
-        <div className={classes.phoneDiv}>
-          <InputText
-            label={"Home Phone"}
-            ref={homePhoneRef}
-            placeholder={homePhone}
-          />
-
-          <InputText
-            label={"Cell Phone"}
-            ref={cellPhoneRef}
-            placeholder={cellPhone}
-          />
-        </div>
-
-        <InputText
-          label={"Email"}
-          ref={emailRef}
-          placeholder={email}
-          style={{ width: "90%" }}
-        />
-
-        <InputText
-          label={"Address Line 1"}
-          ref={addressLine1Ref}
-          placeholder={addressLine1}
-        />
-
-        <InputText
-          label={"Address Line 2"}
-          ref={addressLine2Ref}
-          placeholder={addressLine2}
-        />
-
-        <div className={classes.cityStateDiv}>
-          <InputText
-            label={"City"}
-            ref={cityRef}
-            placeholder={city}
-            style={{ width: "60%", marginRight: "2rem" }}
-          />
-
-          <InputText
-            label={"State"}
-            ref={stateRef}
-            placeholder={state}
-            style={{ width: "10%", marginRight: "2rem" }}
-          />
-
-          <InputText label={"Zip"} ref={zipRef} placeholder={zip} />
-        </div>
-
-        <div className={classes.buttonDiv}>
-          <button className={classes.button} onClick={submitPlayer}>
-            Submit Player
-          </button>
-
-          {props.player && (
-            <button
-              className={classes.deleteButton}
-              onClick={deleteButtonHandler}
-            >
-              {!deleteButtonClicked ? "Remove Player" : "Are You Sure?"}
-            </button>
+          {/* list={instrumentsList}  */}
+          {instrumentDropdownClicked && (
+            
+            <InstrumentsDropDown />
           )}
-        </div>
-      </form>
-    </Modal>
+
+          <div className={classes.phoneDiv}>
+            <InputText
+              label={"Home Phone"}
+              ref={homePhoneRef}
+              placeholder={homePhone}
+            />
+
+            <InputText
+              label={"Cell Phone"}
+              ref={cellPhoneRef}
+              placeholder={cellPhone}
+            />
+          </div>
+
+          <InputText
+            label={"Email"}
+            ref={emailRef}
+            placeholder={email}
+            style={{ width: "90%" }}
+          />
+
+          <InputText
+            label={"Address Line 1"}
+            ref={addressLine1Ref}
+            placeholder={addressLine1}
+          />
+
+          <InputText
+            label={"Address Line 2"}
+            ref={addressLine2Ref}
+            placeholder={addressLine2}
+          />
+
+          <div className={classes.cityStateDiv}>
+            <InputText
+              label={"City"}
+              ref={cityRef}
+              placeholder={city}
+              style={{ width: "60%", marginRight: "2rem" }}
+            />
+
+            <InputText
+              label={"State"}
+              ref={stateRef}
+              placeholder={state}
+              style={{ width: "10%", marginRight: "2rem" }}
+            />
+
+            <InputText label={"Zip"} ref={zipRef} placeholder={zip} />
+          </div>
+
+          <div className={classes.buttonDiv}>
+            <button className={classes.button} onClick={submitPlayer}>
+              Submit Player
+            </button>
+
+            {props.player && (
+              <button
+                className={classes.deleteButton}
+                onClick={deleteButtonHandler}
+              >
+                {!deleteButtonClicked ? "Remove Player" : "Are You Sure?"}
+              </button>
+            )}
+          </div>
+        </form>
+      </Modal>
+    </InstrumentsList.Provider>
   );
 };
 
