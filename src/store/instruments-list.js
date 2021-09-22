@@ -1,5 +1,5 @@
 import React from "react";
 
-const InstrumentsGigList = React.createContext({});
+const InstrumentsList = React.createContext({});
 
-export default InstrumentsGigList;
+export default InstrumentsList;

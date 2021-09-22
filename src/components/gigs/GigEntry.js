@@ -30,7 +30,7 @@ const GigEntry = (props) => {
 
   const submitGig = async (event) => {
     event.preventDefault();
-    console.log(clickedInstrumentList)
+    console.log(clickedInstrumentList);
 
     // const gigToSendUp = {
     //   date: dateRef.current.value,
@@ -47,14 +47,18 @@ const GigEntry = (props) => {
   };
 
   const instrumentToList = (instrument) => {
-    InstrumentToListHelper(instrument, clickedInstrumentList, setClickedInstrumentList);
-  }
+    InstrumentToListHelper(
+      instrument,
+      clickedInstrumentList,
+      setClickedInstrumentList
+    );
+  };
 
   return (
     <InstrumentsList.Provider
       value={{
         clickedInstrumentList: clickedInstrumentList,
-        instrumentToList
+        instrumentToList,
       }}
     >
       <Modal closeModal={props.closeModal}>
@@ -82,11 +86,7 @@ const GigEntry = (props) => {
               <h3 onClick={ensembleClickHandler}>Ensemble</h3>
             </div>
 
-            {ensembleDropdownClicked && (
-              <InstrumentsDropDown  />
-            )}
-
-{/* list={clickedInstrumentList} */}
+            {ensembleDropdownClicked && <InstrumentsDropDown />}
 
             <InputText label={"Client"} style={{ width: "80%" }} />
             <InputText label={"Client Contact"} style={{ width: "80%" }} />

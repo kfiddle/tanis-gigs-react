@@ -6,7 +6,6 @@ import InputText from "../input/InputText";
 
 import InstrumentToListHelper from "../helperFunctions/InstrumentToListHelper";
 
-
 import InstrumentsList from "../../store/instruments-list";
 
 import PushBasic from "../helperFunctions/pushFunctions/PushBasic";
@@ -68,35 +67,9 @@ const PlayerEntry = (props) => {
   const cityRef = useRef();
   const stateRef = useRef();
   const zipRef = useRef();
-  const unionsRef = useRef();
-  const contractedRef = useRef();
-  const subRef = useRef();
-
-  useEffect(() => {
-    const getInstruments = async () => {
-      const allInstruments = await GetAList("get-all-instrument-enums");
-      setInstrumentsList(allInstruments);
-    };
-
-    getInstruments();
-  }, []);
 
   const instrumentsClickHandler = () => {
     setInstrumentDropdownClicked((previous) => !previous);
-  };
-
-  const clickedInstrument = (instrument) => {
-    const tempInstrumentList = clickedInstrumentList;
-    tempInstrumentList.push(instrument);
-    setClickedInstrumentList(tempInstrumentList);
-    console.log(clickedInstrumentList);
-  };
-
-  const unClickedInstrument = (instrument) => {
-    const tempInstrumentList = clickedInstrumentList.filter(
-      (instr) => instr.id !== instrument.id
-    );
-    setClickedInstrumentList(tempInstrumentList);
   };
 
   const deleteButtonHandler = async (event) => {
@@ -203,19 +176,7 @@ const PlayerEntry = (props) => {
             </div>
           </div>
 
-          {/* {instrumentDropdownClicked && (
-          <div className={classes.instrumentsListDiv}>
-            <AllInstruments
-              list={instrumentsList}
-              clickedInstrument={clickedInstrument}
-              unClickedInstrument={unClickedInstrument}
-            />
-          </div>
-        )} */}
-
-          {/* list={instrumentsList}  */}
           {instrumentDropdownClicked && (
-            
             <InstrumentsDropDown />
           )}
 
